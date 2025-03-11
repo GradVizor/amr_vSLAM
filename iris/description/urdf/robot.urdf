@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+<robot name="iris" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find iris)/description/urdf/robot.gazebo" />
+  <xacro:include filename="$(find iris)/description/urdf/ros2_control.xacro" />
+  <xacro:include filename="$(find iris)/description/urdf/depth_camera.xacro" />
+  
+  <material name="White">
+    <color rgba="0.95 0.95 0.95 1"/> 
+  </material>
+  <material name="Blue">
+    <color rgba="0 0 0.5 1"/>
+  </material>
+  <material name="Black">
+    <color rgba="0.05 0.05 0.05 1"/> 
+  </material>
+
+  <link name="base_footprint"></link>
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="-4.5947061124810365e-05 0.0 0.019242447828493114" rpy="0 0 3.14159"/>
+      <mass value="19.322543395603642"/>
+      <inertia ixx="0.065999" iyy="0.149529" izz="0.209517" ixy="-0.0" iyz="0.0" ixz="2e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 3.14159"/>
+      <geometry>
+        <mesh filename="file://$(find iris)/description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="White"/>
+      <material/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 3.14159"/>
+      <geometry>
+        <mesh filename="file://$(find iris)/description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="right_wheel">
+    <inertial>
+      <origin xyz="4.1708858589117875e-14 -0.016957446808510634 -1.0408340855860843e-17" rpy="0 0 3.14159"/>
+      <mass value="1.8545449752671235"/>
+      <inertia ixx="0.001296" iyy="0.002312" izz="0.001296" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.0 -0.103 -0.02" rpy="0 0 3.14159"/>
+      <geometry>
+        <mesh filename="file://$(find iris)/description/meshes/left_wheel.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Black"/>
+      <material/>
+    </visual>
+    <collision>
+      <origin xyz="-0.0 -0.103 -0.02" rpy="0 0 3.14159"/>
+      <geometry>
+        <mesh filename="file://$(find iris)/description/meshes/left_wheel.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="left_wheel">
+    <inertial>
+      <origin xyz="4.1708858589117875e-14 0.016957446808510634 0.0" rpy="0 0 3.14159"/>
+      <mass value="1.8545449752671235"/>
+      <inertia ixx="0.001296" iyy="0.002312" izz="0.001296" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.0 0.103 -0.02" rpy="0 0 3.14159"/>
+      <geometry>
+        <mesh filename="file://$(find iris)/description/meshes/right_wheel.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Black"/>
+      <material/>
+    </visual>
+    <collision>
+      <origin xyz="-0.0 0.103 -0.02" rpy="0 0 3.14159"/>
+      <geometry>
+        <mesh filename="file://$(find iris)/description/meshes/right_wheel.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="right_joint" type="continuous">
+    <origin xyz="0.0 -0.103 0.02" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+    <axis xyz="0.0 1.0 0.0"/>
+  </joint>
+
+  <joint name="left_joint" type="continuous">
+    <origin xyz="0.0 0.103 0.02" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <axis xyz="0.0 1.0 0.0"/>
+  </joint>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+  </joint>
+
+</robot>
