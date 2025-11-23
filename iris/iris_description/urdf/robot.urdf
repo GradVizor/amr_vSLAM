@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot name="iris" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<xacro:include filename="$(find iris_description)/urdf/base_link.xacro"/>
+	<xacro:include filename="$(find iris_description)/urdf/inertia_tensors.xacro"/>	
+	<xacro:include filename="$(find iris_description)/urdf/wheel.xacro"/>
+	<xacro:include filename="$(find iris_description)/urdf/caster.xacro"/>	
+	<xacro:include filename="$(find iris_description)/urdf/plugin.xacro"/>
+	
+
+	<xacro:iris_base />
+	<!-- <xacro:property name="wheel_radius" value="0.1"/> -->
+	<xacro:property name="traction_wheel_radius" value="0.1"/>
+    <xacro:property name="traction_wheel_width" value="0.05"/>
+    <xacro:property name="traction_track_width" value="0.6"/>
+
+	<xacro:iris_wheel xyz_hub="0 -0.30 -0.06" rpy_hub="0 0 0" side="right" color="Green"/>
+	<xacro:iris_wheel xyz_hub="0 0.30 -0.06" rpy_hub="0 0 0" side="left" color="Green"/>
+
+	<xacro:iris_swivel xyz_caster="0.37 -0.22 -0.048" rpy_caster="0 0 0" side="front_right" color="Green"/>
+	<xacro:iris_swivel xyz_caster="0.37 0.22 -0.048" rpy_caster="0 0 0" side="front_left" color="Green"/>
+	<xacro:iris_swivel xyz_caster="-0.37 -0.22 -0.048" rpy_caster="0 0 0" side="back_right" color="Green"/>
+	<xacro:iris_swivel xyz_caster="-0.37 0.22 -0.048" rpy_caster="0 0 0" side="back_left" color="Green"/>
+
+</robot>
